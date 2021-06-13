@@ -5,6 +5,9 @@ jobs:
     working_directory: ~/circleci-Pineapple
     docker:
       - image: circleci/openjdk:11-jdk-stretch
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
 
     steps:
       - checkout
