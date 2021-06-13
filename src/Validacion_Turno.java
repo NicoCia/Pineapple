@@ -12,14 +12,36 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
     private static String COSTO_KEY          = "costo de la consulta";
     private static int    N_TARJETA_LENGHT   =                     20;
     private static int    N_CODSEG_LENGHT    =                      6;
+    private static String METODO_DE_PAGO_KEY =       "metodo de pago";
+
+    private JSONObject respuesta;
+
+    public Validacion_Turno(){
+        respuesta = new JSONObject();
+        respuesta.put("valido","");
+    }
 
     @Override//Devolver valido si o no
     public JSONObject crearTurno(JSONObject json_object) {
-        validarNombre(json_object);
-        validarDNI(json_object);
-        //validarHorario(json_object);
-        validadMetodoDePago(json_object);
-        return null;
+        if(!validarNombre       (json_object))   {setResErrNombre();return respuesta;}
+        if(!validarDNI          (json_object))   {setResErrDNI()   ;return respuesta;}
+        if(!validadMetodoDePago (json_object))   {setResErrMDP()   ;return respuesta;}
+        respuesta.put("valido","si");
+        return respuesta;
+    }
+
+    private void setResErrNombre(){
+        respuesta.put("valido","no");
+        respuesta.put("error","Nombre Invalido");
+    }
+
+    private void setResErrDNI(){
+        respuesta.put("valido","no");
+        respuesta.put("error","DNI Invalido");
+    }
+    private void setResErrMDP(){
+        respuesta.put("valido","no");
+        respuesta.put("error","Metodo de Pago Invalido");
     }
 
     private boolean validarNombre(@NotNull JSONObject js){
@@ -49,7 +71,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
     }
 
     private boolean validadMetodoDePago(JSONObject json_object) {
-        switch (json_object.getString("Metodo De Pago")){
+        switch (json_object.getString(METODO_DE_PAGO_KEY)){
             case "Efectivo":
                 return validarEfectivo(json_object);
             case "Tarjeta de Debito":
@@ -81,17 +103,17 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return stringSoloCompuestoPorNumeros(n_tarjeta)&&(n_tarjeta.length()==N_CODSEG_LENGHT);
     }
 
-    private boolean validarEfectivo(JSONObject jsonObject) {
-        String s = jsonObject.getString(MONTO_KEY);
-        if(stringSoloCompuestoPorNumeros(s)&&montoSuficiente(jsonObject)){
+    private boolean validarEfectivo(JSONObject json_object) {
+        String s = json_object.getString(MONTO_KEY);
+        if(stringSoloCompuestoPorNumeros(s)&&montoSuficiente(json_object)){
             return true;
         }
         return false;
     }
 
-    private boolean montoSuficiente(JSONObject jsonObject){
-        int monto = Integer.parseInt(jsonObject.getString(MONTO_KEY));
-        if(monto>=jsonObject.getInt(COSTO_KEY)){
+    private boolean montoSuficiente(JSONObject json_object){
+        int monto = Integer.parseInt(json_object.getString(MONTO_KEY));
+        if(monto>=json_object.getInt(COSTO_KEY)){
             return true;
         }
         return false;
@@ -99,8 +121,9 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
     @Override
     public JSONObject consultarTurno(JSONObject json_object) {
-        validarDNI(json_object);
-        return null;
+        if(!validarDNI(json_object)) {setResErrDNI();return respuesta;}
+        respuesta.put("valido","si");
+        return respuesta;
     }
 
     @Override
