@@ -5,12 +5,24 @@ import java.util.regex.Pattern;
 
 public class Validacion_Turno implements Interfaz_Validacion_Turno{
     //Constantes
-    private static final String NOMBRE_KEY         =               "nombre";
-    private static final String DNI_KEY            =                  "dni";
-    private static final String NUMERO_TARJETA_KEY =         "n de Tarjeta";
-    private static final String MONTO_KEY          =                "monto";
-    private static final String COSTO_KEY          = "costo de la consulta";
-    private static final String METODO_DE_PAGO_KEY =       "metodo de pago";
+    private static final String NOMBRE_KEY              =               "nombre";
+    private static final String DNI_KEY                 =                  "dni";
+    private static final String NUMERO_TARJETA_KEY      =         "n de Tarjeta";
+    private static final String MONTO_KEY               =                "monto";
+    private static final String COSTO_KEY               = "costo de la consulta";
+    private static final String METODO_DE_PAGO_KEY      =       "metodo de pago";
+    private static final String HORA_KEY                =                 "hora";
+    private static final String NOMBRE_MEDICX_KEY       =    "nombre del medico";
+    private static final String N_CUOTAS_KEY            =          "n de cuotas";
+    private static final String EFECTIVO                =             "efectivo";
+    private static final String TARJETA_DEBITO          =    "tarjeta de debito";
+    private static final String TARJETA_CREDITO         =   "tarjeta de credito";
+    private static final String VENCIMIENTO_TARJETA_KEY =          "vencimiento";
+    private static final String CODSEG_TARJETA_KEY      =  "codigo de seguridad";
+    private static final String ID_MEDICX_KEY           =            "id medico";
+    private static final String VALIDO_KEY              =               "valido";
+    private static final String ERROR_KEY               =                "error";
+    private static final String TURNOS_KEY              =               "turnos";
     private static final int    N_TARJETA_LENGHT   =                     20;
     private static final int    N_CODSEG_LENGHT    =                      6;
 
@@ -71,11 +83,11 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
     private boolean validadMetodoDePago(@NotNull JSONObject json_object) {
         switch (json_object.getString(METODO_DE_PAGO_KEY)){
-            case "Efectivo":
+            case EFECTIVO:
                 return validarEfectivo(json_object);
-            case "Tarjeta de Debito":
+            case TARJETA_DEBITO:
                 return validarDebito(json_object);
-            case "Tarjeta de Credito":
+            case TARJETA_CREDITO:
                 return validarCredito(json_object);
             default:
                 return false;
