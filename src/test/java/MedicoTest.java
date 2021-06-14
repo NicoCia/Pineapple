@@ -29,4 +29,13 @@ public class MedicoTest {
         int id=1;
         assertEquals(medico.getId(), id);
     }
+    public void testGetNombre() {
+        String name = "Nombre Apellido";
+        assertEquals(paciente.getNombre(), name);
+    }
+    @Test
+    public void testGetDni() {
+        String dni = "392658471";
+        assertEquals(paciente.getDni(), dni);
+    }
 }
