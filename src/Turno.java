@@ -36,6 +36,14 @@ public class Turno {
     }
 
     /**
+     * Método que devuelve el metodo de pago que tiene asignado el turno
+     * @return el id del medico
+     */
+    public Metodo_de_pago getMetodoDePago() {
+        return forma_pago;
+    }
+
+    /**
      * Método que devuelve el numero de identificacion del medico
      * @return el id del medico
      */

@@ -44,7 +44,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
     }
     private void setResErrMDP(){
         respuesta.put("valido","no");
-        respuesta.put("error","Metodo de Pago Invalido");
+        respuesta.put("error","Error en metodo de pago");
     }
 
     private boolean validarNombre(@NotNull JSONObject js){
