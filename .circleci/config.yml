@@ -9,17 +9,10 @@ jobs:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD
 
-    steps:
-      - checkout
-      - restore_cache:
-        key: circleci-Pineapple-{{ checksum "pom.xml" }}
-      - run: mvn dependency:go-offline
-      - save_cache:
-        paths:
-          - ~/.m2
-        key: circleci-Pineapple-{{ checksum "pom.xml" }}
-      - run: mvn package
-      - store_test_results:
-        path: target/surefire-reports
-      - store_artifacts:
-        path: target/MavenPineapple-1.0-SNAPSHOT.jar
+orbs:
+  maven: circleci/maven@1.2.0
+
+workflows:
+  maven_test:
+    jobs:
+      - maven/test
