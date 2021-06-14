@@ -7,7 +7,7 @@ public class Fecha {
 
 
     public Fecha(int dia, int mes, int año, String hora){
-        this.dia = año;
+        this.dia = dia;
         this.mes = mes;
         this.año = año;
         this.hora= hora;

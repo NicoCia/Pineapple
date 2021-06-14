@@ -31,7 +31,11 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
     private Interfaz_Agenda    agenda;
 
     public Validacion_Turno(){
-        agenda    = new Agenda();
+        try {
+            agenda    = new Agenda();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         respuesta = new JSONObject();
         respuesta.put("valido","");
     }

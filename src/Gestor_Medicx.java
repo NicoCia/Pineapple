@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
@@ -32,7 +33,7 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
     private static final String MATRICULA_MEDICX_KEY    =            "matricula";
     private static final String DNI_MEDIX_KEY           =           "dni medico";
 
-    private static final String PATH                    = "/home/nico/Facultad/Isoft/Pineapple/src/medicos.txt";
+    private static final String PATH                    = "/home/nico/Facultad/Isoft/Pineapple/Pineapple/src/medicos.txt";
 
     private List<Medico> medicos;
     private BufferedReader br;
@@ -122,31 +123,11 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
     }
 
     private void levantarMedicos() throws IOException {
-        String linea, nombre, matricula, dni, contrasenia;
-        int id;
-
+        Pattern pattern = Pattern.compile("[,\n]");
+        String linea;
         while ((linea = br.readLine()) != null) {
-            int aux = 0;
-
-            aux=linea.indexOf(',');
-            nombre = linea.substring(0,aux);
-            linea = linea.substring(++aux);
-
-            aux = linea.indexOf(',');
-            matricula=linea.substring(0,aux);
-            linea = linea.substring(++aux);
-
-            aux = linea.indexOf(',');
-            dni=linea.substring(0,aux);
-            linea = linea.substring(++aux);
-
-            aux=linea.indexOf(',');
-            contrasenia=linea.substring(0,aux);
-            linea = linea.substring(++aux);
-
-            id=Integer.parseInt(linea.substring(0,linea.length()));
-
-            Medico medico = new Medico(nombre,matricula,dni,contrasenia,id);
+            String[] s = pattern.split(linea);
+            Medico medico = new Medico(s[0],s[1],s[2],s[3],Integer.parseInt(s[4]));
             medicos.add(medico);
         }
     }

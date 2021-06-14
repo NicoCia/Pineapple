@@ -7,6 +7,12 @@ import java.util.BitSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class Agenda implements Interfaz_Agenda{
 
@@ -38,16 +44,20 @@ public class Agenda implements Interfaz_Agenda{
     private static final int    N_MEDICOS               =                                           6;
 
 
-    private static final String PATH                    = "/home/nico/Facultad/Isoft/Pineapple/src/medicos.txt";
+    private static final String PATH                    = "/home/nico/Facultad/Isoft/Pineapple/Pineapple/src/turnos.txt";
 
     //Campos
     private List<Turno>   turnos;
-
+    private BufferedReader br;
+    private File file;
+    private boolean flag_levantando_file;
 
     //Constructor
-    public Agenda() {
+    public Agenda() throws Exception{
         turnos    = new ArrayList<Turno>();
-
+        file = new File(PATH);
+        br = new BufferedReader(new FileReader(file));
+        levantarTurnos();
     }
 
     //TODO
@@ -91,6 +101,10 @@ public class Agenda implements Interfaz_Agenda{
         Turno turno = new Turno(paciente,fecha,id_medico,mdp,costo);
 
         turnos.add(turno);
+
+        if(!flag_levantando_file){
+            escribirTurnoTxt(js,dia,mes,anio);
+        }
     }
 
     private Metodo_de_pago crearMetodoDePago(JSONObject js){
@@ -275,6 +289,83 @@ public class Agenda implements Interfaz_Agenda{
         respuesta.put(VALIDO_KEY,"no");
         respuesta.put(ERROR_KEY,"No se encontro turno");
         return respuesta;
+    }
+
+    private void levantarTurnos() throws IOException {
+        flag_levantando_file = true;
+        Pattern pattern = Pattern.compile("[,\n]");
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] s = pattern.split(linea);
+            JSONObject js= generarJsonApartirDeArray(s);
+
+            crearTurno(js);
+        }
+        flag_levantando_file = false;
+    }
+
+    private JSONObject generarJsonApartirDeArray(String[] s){
+        JSONObject js = new JSONObject();
+
+        js.put(NOMBRE_KEY,s[0]);
+        js.put(DNI_KEY,s[1]);
+        js.put(HORA_KEY,s[2]);
+
+        js.put(ID_MEDICX_KEY,s[6]);
+        js.put(METODO_DE_PAGO_KEY,s[7]);
+        switch (s[7]){
+            case EFECTIVO:
+                js.put(MONTO_KEY,s[8]);
+                js.put(COSTO_KEY,s[9]);
+                break;
+            case TARJETA_DEBITO:
+                js.put(NUMERO_TARJETA_KEY,s[8]);
+                js.put(VENCIMIENTO_TARJETA_KEY,s[9]);
+                js.put(CODSEG_TARJETA_KEY,s[10]);
+                js.put(COSTO_KEY,s[11]);
+                break;
+            case TARJETA_CREDITO:
+                js.put(NUMERO_TARJETA_KEY,s[8]);
+                js.put(VENCIMIENTO_TARJETA_KEY,s[9]);
+                js.put(CODSEG_TARJETA_KEY,s[10]);
+                js.put(N_CUOTAS_KEY,s[11]);
+                js.put(COSTO_KEY,s[12]);
+                break;
+            default:
+                break;
+        }
+        return js;
+    }
+
+    private void escribirTurnoTxt(JSONObject js, int dia, int mes, int anio) {
+        Path filePath = Paths.get(PATH);
+        String a_escribir = generarString(js,dia,mes,anio);
+        try {
+            Files.writeString(filePath, a_escribir, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String generarString(JSONObject js, int dia, int mes, int anio){
+        String cadena = "\n";
+        cadena += js.getString(NOMBRE_KEY)+","+js.getString(DNI_KEY)+","+js.getString(HORA_KEY)+",";
+        cadena += dia + "," + mes +","+anio+","+js.getString(ID_MEDICX_KEY)+",";
+        cadena += js.getString(METODO_DE_PAGO_KEY) + ",";
+
+        if(js.getString(METODO_DE_PAGO_KEY).equals(EFECTIVO)){
+            cadena+= js.getString(MONTO_KEY)+",";
+        }
+        else{
+            cadena+= js.getString(NUMERO_TARJETA_KEY)+",";
+            cadena+= js.getString(VENCIMIENTO_TARJETA_KEY)+",";
+            cadena+= js.getString(CODSEG_TARJETA_KEY)+",";
+            if(js.getString(METODO_DE_PAGO_KEY).equals(TARJETA_CREDITO)){
+                cadena+=js.getString(N_CUOTAS_KEY)+",";
+            }
+        }
+        cadena+=js.getString(COSTO_KEY);
+        return cadena;
     }
 
 }

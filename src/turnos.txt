@@ -1,0 +1,7 @@
+Nico,dni,17:30,14,06,2021,0,efectivo,1000,500
+Nico Cia,dni,16:00,14,06,2021,1,tarjeta de debito,123456789,vencimiento,123,500
+Juan Giron,dni,15:00,14,06,2021,2,tarjeta de credito,987456123,vencimiento,124,3,500
+Nico,dni,17:30,14,6,2021,1,efectivo,1000,500
+Nico Cia,dni,16:00,14,6,2021,2,tarjeta de debito,123456789,vencimiento,123,500
+Juan Giron,dni,15:00,14,6,2021,3,tarjeta de credito,987456123,vencimiento,124,3,500
+Nico,dni,17:00,14,6,2021,0,efectivo,1000,500
