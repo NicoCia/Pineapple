@@ -1,8 +1,10 @@
+
 public class Fecha {
     private int dia;
     private int mes;
     private int año;
     private String hora;
+
 
     public Fecha(int dia, int mes, int año, String hora){
         this.dia = año;

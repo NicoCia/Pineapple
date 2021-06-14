@@ -5,18 +5,21 @@ import java.util.regex.Pattern;
 
 public class Validacion_Turno implements Interfaz_Validacion_Turno{
     //Constantes
-    private static String NOMBRE_KEY         =               "nombre";
-    private static String DNI_KEY            =                  "dni";
-    private static String NUMERO_TARJETA_KEY =         "n de Tarjeta";
-    private static String MONTO_KEY          =                "monto";
-    private static String COSTO_KEY          = "costo de la consulta";
-    private static int    N_TARJETA_LENGHT   =                     20;
-    private static int    N_CODSEG_LENGHT    =                      6;
-    private static String METODO_DE_PAGO_KEY =       "metodo de pago";
+    private static final String NOMBRE_KEY         =               "nombre";
+    private static final String DNI_KEY            =                  "dni";
+    private static final String NUMERO_TARJETA_KEY =         "n de Tarjeta";
+    private static final String MONTO_KEY          =                "monto";
+    private static final String COSTO_KEY          = "costo de la consulta";
+    private static final String METODO_DE_PAGO_KEY =       "metodo de pago";
+    private static final int    N_TARJETA_LENGHT   =                     20;
+    private static final int    N_CODSEG_LENGHT    =                      6;
 
-    private JSONObject respuesta;
+
+    private JSONObject      respuesta;
+    private Interfaz_Agenda    agenda;
 
     public Validacion_Turno(){
+        agenda    = new Agenda();
         respuesta = new JSONObject();
         respuesta.put("valido","");
     }
