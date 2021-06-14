@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MedicoTest {
     Medico medico = new Medico("Nombre Apellido","1234","4321","12345ascsd",1);
+    Paciente paciente = new Paciente("Nombre Apellido","392658471");
     @Test
     public void testGetNombre() {
         String name="Nombre Apellido";
@@ -29,12 +30,12 @@ public class MedicoTest {
         int id=1;
         assertEquals(medico.getId(), id);
     }
-    public void testGetNombre() {
+    public void testPacienteGetNombre() {
         String name = "Nombre Apellido";
         assertEquals(paciente.getNombre(), name);
     }
     @Test
-    public void testGetDni() {
+    public void testPacienteGetDni() {
         String dni = "392658471";
         assertEquals(paciente.getDni(), dni);
     }
