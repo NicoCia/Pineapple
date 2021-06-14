@@ -153,6 +153,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
     @Override
     public JSONObject cambiarMetodoPago(JSONObject js){
+        if(!validadMetodoDePago (js))   {setResErrMDP()   ;return respuesta;}
         return agenda.cambiarMetodoPago(js);
     }
 
