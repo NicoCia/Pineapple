@@ -1,5 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.*;
 import java.util.BitSet;
 
 import java.time.LocalDate;
@@ -36,12 +38,16 @@ public class Agenda implements Interfaz_Agenda{
     private static final int    N_MEDICOS               =                                           6;
 
 
+    private static final String PATH                    = "/home/nico/Facultad/Isoft/Pineapple/src/medicos.txt";
+
     //Campos
     private List<Turno>   turnos;
 
+
     //Constructor
-    public Agenda(){
+    public Agenda() {
         turnos    = new ArrayList<Turno>();
+
     }
 
     //TODO
@@ -252,4 +258,6 @@ public class Agenda implements Interfaz_Agenda{
         respuesta.put(TURNOS_KEY,array);
         return respuesta;
     }
+
+
 }

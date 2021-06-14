@@ -66,10 +66,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
     private boolean stringSoloCompuestoPorNumeros(String s){
         if (s == null) {return false;}
-        if (Pattern.matches("[0-9]+",s)) {
-            return true;
-        }
-        return false;
+        return Pattern.matches("[0-9]+", s);
     }
 
     private boolean validadMetodoDePago(@NotNull JSONObject json_object) {

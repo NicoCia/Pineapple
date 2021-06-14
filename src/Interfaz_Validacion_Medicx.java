@@ -1,4 +1,7 @@
 import org.json.*;
 public interface Interfaz_Validacion_Medicx {
-    public JSONObject loguearComoMedicx(JSONObject json_object);
+    public JSONObject iniciarSesion(JSONObject json_object);
+    public JSONObject getMatConID(JSONObject json_object)  ;
+    public JSONObject getIDConMat(JSONObject json_object)  ;
+    public void       crearMedicx(JSONObject json_object)  ;
 }
