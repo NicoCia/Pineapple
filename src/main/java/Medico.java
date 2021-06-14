@@ -64,6 +64,6 @@ public class Medico {
      * @return el numero de identificacion
      */
     public int getId() {
-        return this.id;
+        return this.id+1;
     }
 }
