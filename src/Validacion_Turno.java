@@ -151,7 +151,10 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return agenda.consultarTurnosReservadosMedico(json_object);
     }
 
-
+    @Override
+    public JSONObject cambiarMetodoPago(JSONObject js){
+        return agenda.cambiarMetodoPago(js);
+    }
 
 
 

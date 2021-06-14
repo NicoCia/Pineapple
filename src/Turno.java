@@ -31,8 +31,8 @@ public class Turno {
     /**
      * Método que configura el metodo de pago
      */
-    public void setMetodoPago() {
-
+    public void setMetodoPago(Metodo_de_pago metodo_de_pago) {
+        forma_pago = metodo_de_pago;
     }
 
     /**

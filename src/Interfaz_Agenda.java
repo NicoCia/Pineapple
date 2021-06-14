@@ -6,4 +6,5 @@ public interface Interfaz_Agenda {
     public JSONObject consultarTurnosDiponibles();
     public JSONObject consultarTurnosDisponiblesMedico(JSONObject json_object);
     public JSONObject consultarTurnosReservadosMedico(JSONObject json_object);
+    public JSONObject cambiarMetodoPago(JSONObject js);
 }
