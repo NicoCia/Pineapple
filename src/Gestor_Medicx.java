@@ -63,7 +63,7 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
         String contrasenia = json_object.getString(CONTRASENIA_MEDICX_KEY);
         for(Medico medico : medicos){
             if(medico.getMatricula().equals(matricula)&&medico.getContrasenia().equals(contrasenia)){
-                return logueoCorrecto();
+                return logueoCorrecto(medico.getId());
             }
         }
         return logueoIncorrecto();
@@ -107,9 +107,10 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
         return respuesta;
     }
 
-    private JSONObject logueoCorrecto(){
+    private JSONObject logueoCorrecto(int id){
         JSONObject respuesta = new JSONObject();
         respuesta.put(VALIDO_KEY,"si");
+        respuesta.put(ID_MEDICX_KEY,String.format("%d",id));
         return respuesta;
     }
 
