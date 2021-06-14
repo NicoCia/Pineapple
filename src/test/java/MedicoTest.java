@@ -2,8 +2,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MedicoTest {
-  Medico medico = new Medico("Nombre Apellido","1234","4321","12345ascsd",1);
+public class MedicoTest {
+    Medico medico = new Medico("Nombre Apellido","1234","4321","12345ascsd",1);
     @Test
     public void testGetNombre() {
         String name="Nombre Apellido";
