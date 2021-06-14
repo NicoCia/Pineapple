@@ -30,6 +30,7 @@ public class MedicoTest {
         int id=1;
         assertEquals(medico.getId(), id);
     }
+    @Test
     public void testPacienteGetNombre() {
         String name = "Nombre Apellido";
         assertEquals(paciente.getNombre(), name);
