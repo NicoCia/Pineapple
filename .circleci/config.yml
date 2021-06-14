@@ -8,5 +8,5 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-        store_test_results:
+        test_results_path:
           path: ~/test-results
