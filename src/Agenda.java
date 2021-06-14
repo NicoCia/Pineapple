@@ -1,5 +1,6 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.BitSet;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,34 +27,23 @@ public class Agenda implements Interfaz_Agenda{
     private static final String ERROR_KEY               =                "error";
     private static final String TURNOS_KEY              =               "turnos";
 
-    private static final int    N_TARJETA_LENGHT   =                          20;
-    private static final int    N_CODSEG_LENGHT    =                           6;
-
-
+    private static final int    INICIO_JORNADA_LABORAL  =                                           8;
+    private static final int    FIN_JORNADA_LABORAL     =                                          16;
+    private static final int    FRANJA_HORARIA          =  FIN_JORNADA_LABORAL-INICIO_JORNADA_LABORAL;
+    private static final int    TIEMPO_POR_TURNO        =                                          30;
+    private static final double TURNOS_POR_HORA         =                       60.0/TIEMPO_POR_TURNO;
+    private static final int    N_TURNOS                =(int) ((int)FRANJA_HORARIA*TIEMPO_POR_TURNO);
+    private static final int    N_MEDICOS               =                                           6;
 
 
     //Campos
     private List<Turno>   turnos;
-    //private JSONObject respuesta;
 
     //Constructor
     public Agenda(){
         turnos    = new ArrayList<Turno>();
-    //    respuesta = new JSONObject();
     }
 
-    //Metodos
-    /*
-    public ArrayList<Turno> consultar_turno_paciente(int dni){
-        List turnos_del_paciente = new ArrayList<>();
-        for (Turno turno : turnos){
-            if(turno.get_paciente().get_dni() == dni){
-                turnos_del_paciente.add(turno);
-            }
-        }
-        return turnos_del_paciente;
-    }
-*/
     //TODO
     private boolean turno_disponible(String hora, int id_medico){
         for(Turno turno : turnos){
@@ -155,16 +145,63 @@ public class Agenda implements Interfaz_Agenda{
         }
         return respuesta;
     }
-
+    /*
+    consultar turno disponibles:
+    {
+        valido:
+        JSON_array medicos:[
+            nombre_medico1: arrayList_horarios[]
+            nombre_medico2: arrayList_horarios[]
+        ]
+    }
+    /*
+     */
     @Override
     public JSONObject consultarTurnosDiponibles() {
-        return null;
+        BitSet[] bs = turnosReservadosEnBitsets();
+        JSONObject respuesta = new JSONObject();
+        JSONArray array = new JSONArray();
+
+        for (int i=0;i<N_MEDICOS;i++){
+            ArrayList<String> list = new ArrayList<>();
+            for(int j=0;j<N_TURNOS;j++){
+                if(!bs[i].get(j)){
+                    list.add(horaConIJ(j));
+                }
+            }
+            JSONObject elemento = new JSONObject();
+            elemento.put(String.format("%d",i),list);
+            array.put(i,elemento);
+        }
+        respuesta.put("medicos",array);
+        return respuesta;
+    }
+
+    private String horaConIJ(int j){
+        int hora =   (int)(j/TURNOS_POR_HORA)*TIEMPO_POR_TURNO;
+        int min  =  (j%(int)TURNOS_POR_HORA)*TIEMPO_POR_TURNO;
+        return String.format("%d:%d",hora,min);
     }
 
     @Override
     public JSONObject consultarTurnosDisponiblesMedico(JSONObject json_object) {
-        return null;
-    }/*
+        BitSet[] bs = turnosReservadosEnBitsets();
+        JSONObject respuesta = new JSONObject();
+        JSONArray array = new JSONArray();
+
+        int i = Integer.parseInt(json_object.getString(ID_MEDICX_KEY));
+        for(int j=0;j<N_TURNOS;j++){
+            if(!bs[i].get(j)){
+                JSONObject elemento = new JSONObject();
+                elemento.put(HORA_KEY,horaConIJ(j));
+                array.put(elemento);
+            }
+        }
+
+        respuesta.put("medicos",array);
+        return respuesta;
+    }
+    /*
     turnos resevados medico
     {
         valido:
@@ -175,7 +212,24 @@ public class Agenda implements Interfaz_Agenda{
                 }
         ]
     }
-*/
+    */
+    private BitSet[] turnosReservadosEnBitsets(){
+        BitSet[] bs = new BitSet[N_MEDICOS];
+
+        for(Turno turno : turnos){
+            int indice = calcularIndice(turno.getFecha().get_hora());
+            bs[turno.getIdMedico()].set(indice);
+        }
+
+        return bs;
+    }
+
+    private int calcularIndice(String s){
+        int hora   = Integer.parseInt(s.substring(0,2));
+        int minutos= Integer.parseInt(s.substring(3,5));
+        return (int) ((hora-INICIO_JORNADA_LABORAL)*TURNOS_POR_HORA+60/minutos);
+    }
+
     @Override
     public JSONObject consultarTurnosReservadosMedico(JSONObject json_object) {
         JSONObject respuesta = new JSONObject();
