@@ -84,7 +84,7 @@ public class Validacion_Medicx implements Interfaz_Validacion_Medicx{
     }
 
     @Override
-    public JSONObject getIDConMat(JSONObject json_object) {
+    public JSONObject getIDConNom(JSONObject json_object) {
         if(!validarID(json_object)){return ErrIDNom();}
         return gestor_medicx.getIDConNom(json_object);
     }
