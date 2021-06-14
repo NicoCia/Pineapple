@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PacienteTest {
+class testPaciente {
     Paciente paciente = new Paciente("Nombre Apellido","392658471");
     @Test
     public void testGetNombre() {
