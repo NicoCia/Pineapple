@@ -32,7 +32,7 @@ public class Agenda implements Interfaz_Agenda{
     private static final int    FRANJA_HORARIA          =  FIN_JORNADA_LABORAL-INICIO_JORNADA_LABORAL;
     private static final int    TIEMPO_POR_TURNO        =                                          30;
     private static final double TURNOS_POR_HORA         =                       60.0/TIEMPO_POR_TURNO;
-    private static final int    N_TURNOS                =(int) ((int)FRANJA_HORARIA*TIEMPO_POR_TURNO);
+    private static final int    N_TURNOS                = (int) ((int)FRANJA_HORARIA*TURNOS_POR_HORA);
     private static final int    N_MEDICOS               =                                           6;
 
 
@@ -47,7 +47,7 @@ public class Agenda implements Interfaz_Agenda{
     //TODO
     private boolean turno_disponible(String hora, int id_medico){
         for(Turno turno : turnos){
-            if(turno.getFecha().get_hora().equals(hora) && turno.getIdMedico() == id_medico){
+            if(turno.getFecha().get_hora().equals(hora) && (turno.getIdMedico() == id_medico)){
                 return false;
             }
         }
@@ -67,8 +67,8 @@ public class Agenda implements Interfaz_Agenda{
             return respuesta;
         }
         respuesta.put(VALIDO_KEY,"no");
-        respuesta.put("error","turno no disponible");
-        return null;
+        respuesta.put("error","horario no disponible");
+        return respuesta;
     }
 
     private void agregarTurno(JSONObject js,String hora, int id_medico){
@@ -80,8 +80,9 @@ public class Agenda implements Interfaz_Agenda{
         int anio= fecha_actual.getYear();
         Fecha fecha = new Fecha(dia, mes, anio, hora);
 
+        Metodo_de_pago mdp = crearMetodoDePago(js);
         int costo = Integer.parseInt(js.getString(COSTO_KEY));
-        Turno turno = new Turno(paciente,fecha,id_medico,crearMetodoDePago(js),costo);
+        Turno turno = new Turno(paciente,fecha,id_medico,mdp,costo);
 
         turnos.add(turno);
     }
@@ -89,24 +90,24 @@ public class Agenda implements Interfaz_Agenda{
     private Metodo_de_pago crearMetodoDePago(JSONObject js){
         Metodo_de_pago metodo_de_pago;
         switch (js.getString(METODO_DE_PAGO_KEY)) {
-            case EFECTIVO -> {
+            case EFECTIVO:
                 int monto = Integer.parseInt(js.getString(MONTO_KEY));
                 metodo_de_pago = new Efectivo(monto);
-            }
-            case TARJETA_DEBITO -> {
+                break;
+            case TARJETA_DEBITO:
                 long numeroD = Long.parseLong(js.getString(NUMERO_TARJETA_KEY));
                 String vencimientoD = js.getString(VENCIMIENTO_TARJETA_KEY);
                 int codigoD = Integer.parseInt(js.getString(CODSEG_TARJETA_KEY));
                 metodo_de_pago = new Tarjeta_debito(numeroD, vencimientoD, codigoD);
-            }
-            case TARJETA_CREDITO -> {
+                break;
+            case TARJETA_CREDITO:
                 long numeroC = Long.parseLong(js.getString(NUMERO_TARJETA_KEY));
                 String vencimientoC = js.getString(VENCIMIENTO_TARJETA_KEY);
                 int codigoC = Integer.parseInt(js.getString(CODSEG_TARJETA_KEY));
                 int n_cuotas = Integer.parseInt(js.getString(N_CUOTAS_KEY));
                 metodo_de_pago = new Tarjeta_credito(numeroC, vencimientoC, codigoC, n_cuotas);
-            }
-            default -> metodo_de_pago = null;
+                break;
+            default: metodo_de_pago = null;
         }
         return metodo_de_pago;
     }
@@ -173,14 +174,15 @@ public class Agenda implements Interfaz_Agenda{
             elemento.put(String.format("%d",i),list);
             array.put(i,elemento);
         }
+        respuesta.put(VALIDO_KEY,"si");
         respuesta.put("medicos",array);
         return respuesta;
     }
 
     private String horaConIJ(int j){
-        int hora =   (int)(j/TURNOS_POR_HORA)*TIEMPO_POR_TURNO;
+        int hora =   (int)(j/TURNOS_POR_HORA)+INICIO_JORNADA_LABORAL;
         int min  =  (j%(int)TURNOS_POR_HORA)*TIEMPO_POR_TURNO;
-        return String.format("%d:%d",hora,min);
+        return String.format("%02d:%02d",hora,min);
     }
 
     @Override
@@ -197,8 +199,8 @@ public class Agenda implements Interfaz_Agenda{
                 array.put(elemento);
             }
         }
-
-        respuesta.put("medicos",array);
+        respuesta.put(VALIDO_KEY,"si");
+        respuesta.put("turnos",array);
         return respuesta;
     }
     /*
@@ -215,6 +217,9 @@ public class Agenda implements Interfaz_Agenda{
     */
     private BitSet[] turnosReservadosEnBitsets(){
         BitSet[] bs = new BitSet[N_MEDICOS];
+        for(int i=0;i<N_MEDICOS;i++){
+            bs[i] = new BitSet(N_TURNOS);
+        }
 
         for(Turno turno : turnos){
             int indice = calcularIndice(turno.getFecha().get_hora());
@@ -227,7 +232,7 @@ public class Agenda implements Interfaz_Agenda{
     private int calcularIndice(String s){
         int hora   = Integer.parseInt(s.substring(0,2));
         int minutos= Integer.parseInt(s.substring(3,5));
-        return (int) ((hora-INICIO_JORNADA_LABORAL)*TURNOS_POR_HORA+60/minutos);
+        return (int) ((hora-INICIO_JORNADA_LABORAL)*TURNOS_POR_HORA+minutos/TIEMPO_POR_TURNO);
     }
 
     @Override
