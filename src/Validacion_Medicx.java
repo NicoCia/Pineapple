@@ -73,7 +73,7 @@ public class Validacion_Medicx implements Interfaz_Validacion_Medicx{
 
     private boolean stringSoloCompuestoPorletras(String s){
         if (s == null) {return false;}
-        return Pattern.matches("[a-zA-Z]+", s);
+        return Pattern.matches("[a-z A-Z]+", s);
     }
 
     private JSONObject ErrNomID(){

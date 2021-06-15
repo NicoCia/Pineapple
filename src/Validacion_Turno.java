@@ -69,7 +69,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
     private boolean stringSoloCompuestoPorletras(String s){
         if (s == null) {return false;}
-        if (Pattern.matches("[a-zA-Z]+",s)) {
+        if (Pattern.matches("[a-z A-Z]+",s)) {
             return true;
         }
         return false;
