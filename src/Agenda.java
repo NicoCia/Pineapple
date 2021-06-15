@@ -286,7 +286,7 @@ public class Agenda implements Interfaz_Agenda{
     }
 
     public JSONObject cambiarMetodoPago(JSONObject js){
-        int id_medico = Integer.parseInt(js.getString(NOMBRE_KEY));
+        int id_medico = Integer.parseInt(js.getString(ID_MEDICX_KEY));
         JSONObject respuesta = new JSONObject();
 
         Turno turno = getTurnoPorIDMedYHora(id_medico,js.getString(HORA_KEY));
