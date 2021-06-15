@@ -290,13 +290,17 @@ public class Agenda implements Interfaz_Agenda{
         JSONObject respuesta = new JSONObject();
 
         Turno turno = getTurnoPorIDMedYHora(id_medico,js.getString(HORA_KEY));
-        if(turno!=null){
-            respuesta.put(VALIDO_KEY,"si");
+        if(turno==null){
+            respuesta.put(VALIDO_KEY,"no");
+            respuesta.put(ERROR_KEY,"No se encontro turno");
             return respuesta;
         }
-        respuesta.put(VALIDO_KEY,"no");
-        respuesta.put(ERROR_KEY,"No se encontro turno");
+
+        Metodo_de_pago metodo_de_pago = crearMetodoDePago(js);
+        turno.setMetodoPago(metodo_de_pago);
+        respuesta.put(VALIDO_KEY,"si");
         return respuesta;
+
     }
 
     private void levantarTurnos() throws IOException {
