@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class Agenda implements Interfaz_Agenda{
+public class Agenda implements Interfaz_Agenda, Subject{
 
     private static final String NOMBRE_KEY              =               "nombre";
     private static final String DNI_KEY                 =                  "dni";
@@ -48,13 +48,15 @@ public class Agenda implements Interfaz_Agenda{
 
     //Campos
     private List<Turno>   turnos;
+    private List<Observer> observers;
     private BufferedReader br;
     private File file;
     private boolean flag_levantando_file;
 
     //Constructor
     public Agenda() throws Exception{
-        turnos    = new ArrayList<Turno>();
+        turnos    = new ArrayList<>();
+        observers = new ArrayList<>();
         file = new File(PATH);
         br = new BufferedReader(new FileReader(file));
         levantarTurnos();
@@ -80,6 +82,7 @@ public class Agenda implements Interfaz_Agenda{
             agregarTurno(js,hora,id_medico);
 
             respuesta.put(VALIDO_KEY,"si");
+            notifyObservers();
             return respuesta;
         }
         respuesta.put(VALIDO_KEY,"no");
@@ -379,6 +382,27 @@ public class Agenda implements Interfaz_Agenda{
         return cadena;
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        int i = observers.indexOf(o);
+        if(i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (int i = 0; i < observers.size(); i++){
+            Observer observer = observers.get(i);
+            observer.update();
+        }
+    }
+
     public static void main(String[] args) {
         try {
             Agenda agenda = new Agenda();
@@ -392,4 +416,5 @@ public class Agenda implements Interfaz_Agenda{
             e.printStackTrace();
         }
     }
+
 }

@@ -3,9 +3,11 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class VistaTurnosDisp extends JFrame{
+public class VistaTurnosDisp extends JFrame implements Observer{
     private static final String ID_MEDICX_KEY           =         "id medico";
     private static final String NOMBRE_MEDICX_KEY       = "nombre del medico";
     private static final String VALIDO_KEY              =            "valido";
@@ -24,18 +26,23 @@ public class VistaTurnosDisp extends JFrame{
         this.id_medicos = id_medicos;
         titleLabel.setText("TURNOS DISPONIBLES");
         turnosTextPane.setEditable(false);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                onExit();
+            }
+        });
         this.setContentPane(mainPanel);
         this.setPreferredSize(new Dimension(700, 500));
         this.pack();
+        validadorTurnos.registerObserver(VistaTurnosDisp.this);
     }
 
-    public void update() {
-        cargarVistaContent();
-    }
+
 
     public void cargarVistaContent(){
         JSONObject jo = validadorTurnos.consultarTurnosDiponibles();
+        turnosTextPane.setText("");
         if(jo.getString(VALIDO_KEY).equals("si")){
             JSONArray ja = jo.getJSONArray("medicos");
             for(int i=0; i<id_medicos.size(); i++){
@@ -60,5 +67,15 @@ public class VistaTurnosDisp extends JFrame{
         turnosTextPane.setCaretPosition(len);
         turnosTextPane.replaceSelection(s);
         turnosTextPane.setEditable(false);
+    }
+
+    @Override
+    public void update() {
+        cargarVistaContent();
+    }
+
+    private void onExit(){
+        validadorTurnos.removeObserver(VistaTurnosDisp.this);
+        VistaTurnosDisp.this.dispose();
     }
 }

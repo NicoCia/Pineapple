@@ -28,7 +28,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
 
 
     private JSONObject      respuesta;
-    private Interfaz_Agenda    agenda;
+    private Agenda    agenda;
 
     public Validacion_Turno(){
         try {
@@ -161,6 +161,15 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return agenda.cambiarMetodoPago(js);
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        agenda.registerObserver(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        agenda.removeObserver(o);
+    }
 
 
 }

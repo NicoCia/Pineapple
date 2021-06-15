@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.*;
 
-
+/*---------------CLASE AgendaGUI-----------------*/
 public class AgendaGUI extends JFrame {
 
     private final ArrayList<String> id_medicos;
@@ -163,7 +165,7 @@ public class AgendaGUI extends JFrame {
     private JComboBox mesDebitoCambiarBox;
     private JComboBox anioDebitoCambiarBox;
 
-    /*---------------CLASE AgendaGUI-----------------*/
+    /*---------------CONSTRUCTOR CLASE AgendaGUI-----------------*/
     public AgendaGUI(String title, Interfaz_Validacion_Turno validadorTurnos, Interfaz_Validacion_Medicx validadorMedicx, ArrayList<String> id_medicos){
         super(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -532,6 +534,10 @@ public class AgendaGUI extends JFrame {
         });
     }
 
+    /**
+     * Metodo de limpieza de la VISTA CREAR TURNO
+     * Regresa todos los campos al valor original
+     */
     private void cleanCrearTurnoPanel(){
         nombrePaciente.setText("");
         dniCrear.setText("");
@@ -548,6 +554,10 @@ public class AgendaGUI extends JFrame {
         cuotasBox.setSelectedItem("1");
     }
 
+    /**
+     * Metodo de limpieza de la VISTA CAMBIAR METODO DE PAGO
+     * Regresa todos los campos al valor original
+     */
     private void cleanCambiarMetodoDePagoPanel(){
         pagoBox2.setSelectedItem("Efectivo");
         cambiarEfectivoMonto.setText("");
