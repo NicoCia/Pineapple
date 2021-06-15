@@ -449,7 +449,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="dd649" class="javax.swing.JComboBox" binding="pagoBox">
+                  <component id="dd649" class="javax.swing.JComboBox" binding="pagoBox1">
                     <constraints>
                       <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -527,7 +527,7 @@
                       <text value="Horario:"/>
                     </properties>
                   </component>
-                  <component id="93db4" class="javax.swing.JLabel" binding="pagoLabel">
+                  <component id="93db4" class="javax.swing.JLabel" binding="pagoLabel1">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="120" height="-1"/>
@@ -537,7 +537,7 @@
                       <text value="Forma De Pago:"/>
                     </properties>
                   </component>
-                  <component id="4f3f" class="javax.swing.JLabel" binding="costoConsultaLabel">
+                  <component id="4f3f" class="javax.swing.JLabel" binding="costoConsultaLabel1">
                     <constraints>
                       <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -884,7 +884,7 @@
                     </constraints>
                     <properties>
                       <font name="Standard Symbols L"/>
-                      <text value="soy un texto"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <component id="f74e8" class="javax.swing.JToolBar$Separator">
@@ -1045,6 +1045,422 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="5e0d" binding="cambiarMetodoPagoPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <card name="Card7"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="7e6d0" binding="nuevoMetodoPagoPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="5285e" binding="cambiarEfectivoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <card name="Card1"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="15ae4" class="javax.swing.JTextField" binding="cambiarEfectivoMonto">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="160" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="9a016" class="javax.swing.JLabel" binding="cambiarEfectivoMontoLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <horizontalAlignment value="10"/>
+                      <horizontalTextPosition value="11"/>
+                      <text value="Monto:"/>
+                      <verticalAlignment value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="295d1" binding="cambiarDebitoPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <card name="Card2"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="250ac" class="javax.swing.JTextField" binding="numeroTarjetaDebitoCambiar">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="9950d" class="javax.swing.JTextField" binding="codSegTarjetaDebitoCambiar">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="4a970" class="javax.swing.JLabel" binding="numeroTarjetaDebitoCambiarLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Nº Tarjeta:"/>
+                    </properties>
+                  </component>
+                  <component id="ede17" class="javax.swing.JLabel" binding="codSegDebitoCambiarLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Cod Seguridad:"/>
+                    </properties>
+                  </component>
+                  <component id="101cb" class="javax.swing.JLabel" binding="vencimientoDebitoCambiarLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Vencimiento:"/>
+                    </properties>
+                  </component>
+                  <grid id="2ed0c" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="5fe4f" class="javax.swing.JComboBox" binding="mesDebitoCambiarBox">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <alignmentX value="0.5"/>
+                          <model>
+                            <item value="1"/>
+                            <item value="2"/>
+                            <item value="3"/>
+                            <item value="4"/>
+                            <item value="5"/>
+                            <item value="6"/>
+                            <item value="7"/>
+                            <item value="8"/>
+                            <item value="9"/>
+                            <item value="10"/>
+                            <item value="11"/>
+                            <item value="12"/>
+                          </model>
+                          <toolTipText value="Mes"/>
+                        </properties>
+                      </component>
+                      <component id="cb91d" class="javax.swing.JComboBox" binding="anioDebitoCambiarBox">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <model>
+                            <item value="2020"/>
+                            <item value="2021"/>
+                            <item value="2022"/>
+                            <item value="2023"/>
+                            <item value="2024"/>
+                            <item value="2025"/>
+                            <item value="2026"/>
+                            <item value="2027"/>
+                            <item value="2028"/>
+                            <item value="2029"/>
+                            <item value="2030"/>
+                          </model>
+                          <toolTipText value="Año"/>
+                        </properties>
+                      </component>
+                      <hspacer id="3edeb">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="35797" binding="cambiarCreditoPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <card name="Card3"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="262e9" class="javax.swing.JTextField" binding="numeroTarjetaCreditoCambiar">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="b8621" class="javax.swing.JTextField" binding="codSegTarjetaCreditoCambiar">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <grid id="e781d" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="102ad" class="javax.swing.JComboBox" binding="mesCreditoCambiarBox">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <model>
+                            <item value="1"/>
+                            <item value="2"/>
+                            <item value="3"/>
+                            <item value="4"/>
+                            <item value="5"/>
+                            <item value="6"/>
+                            <item value="7"/>
+                            <item value="8"/>
+                            <item value="9"/>
+                            <item value="10"/>
+                            <item value="11"/>
+                            <item value="12"/>
+                          </model>
+                        </properties>
+                      </component>
+                      <component id="97d3a" class="javax.swing.JComboBox" binding="anioCreditoCambiarBox">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <model>
+                            <item value="2020"/>
+                            <item value="2021"/>
+                            <item value="2022"/>
+                            <item value="2023"/>
+                            <item value="2024"/>
+                            <item value="2025"/>
+                            <item value="2026"/>
+                            <item value="2027"/>
+                            <item value="2028"/>
+                            <item value="2029"/>
+                            <item value="2030"/>
+                          </model>
+                        </properties>
+                      </component>
+                      <hspacer id="d5c64">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                  <component id="f2e0b" class="javax.swing.JLabel" binding="numeroTarjetaCreditoCambiarLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Nº Tarjeta:"/>
+                    </properties>
+                  </component>
+                  <component id="6e282" class="javax.swing.JLabel" binding="vencimientoCreditoCambiarLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Vencimiento:"/>
+                    </properties>
+                  </component>
+                  <component id="b5828" class="javax.swing.JLabel" binding="codSegCreditoCambiarLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Cod Serguridad:"/>
+                    </properties>
+                  </component>
+                  <component id="9948" class="javax.swing.JComboBox" binding="cuotasCambiarBox">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="20" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <model>
+                        <item value="1"/>
+                        <item value="3"/>
+                        <item value="6"/>
+                      </model>
+                    </properties>
+                  </component>
+                  <component id="f1e15" class="javax.swing.JLabel" binding="cuotasCreditoCambiarLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Nº Cuotas:"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="afd64" binding="cambiarButtonsPanel" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="b5108" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="51daa" class="javax.swing.JButton" binding="backCambiarButton">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Volver"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <hspacer id="96fe0">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <grid id="5867" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="c5394" class="javax.swing.JButton" binding="realizarCambioButton">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Realizar Cambio"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <hspacer id="b3b5e">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="4c2ee">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+          <hspacer id="fab7c">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <hspacer id="23c46">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <grid id="c4775" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="52ddd" class="javax.swing.JLabel" binding="pagoLabel2">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="120" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Forma De Pago:"/>
+                </properties>
+              </component>
+              <component id="eb244" class="javax.swing.JComboBox" binding="pagoBox2">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="Efectivo"/>
+                    <item value="Tarjeta De Debito"/>
+                    <item value="Tarjeta De Credito"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="c836f" class="javax.swing.JLabel" binding="costoConsultaLabel2">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Label"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

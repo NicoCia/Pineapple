@@ -1,15 +1,22 @@
-public class Efectivo implements Metodo_de_Pago {
-	private int monto;
 
-	public Efectivo(int monto){
-		this.monto = monto;
-	}
+/** Esta clase define objetos que representa el metodo de pago efectivo
+ * @author: Pineapple
+ * @version: 12/06/2021
+ */
+public class Efectivo implements Metodo_de_pago{
+    //Campos de la clase
+    private int monto;
 
-	public void pagar(){
-		System.out.println(this);
-	}
+    /**
+     * Constructor para la clase Efectivo
+     * @param monto Monto a pagar
+     */
+    public Efectivo(int monto) {
+        this.monto=monto;
+    }
 
-	public String toString(){
-		return "Pago con efectivo $" + monto; 
-	}
+    @Override
+    public boolean pagar(int monto) {
+        return true;
+    }
 }
