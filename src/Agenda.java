@@ -286,17 +286,13 @@ public class Agenda implements Interfaz_Agenda{
     }
 
     public JSONObject cambiarMetodoPago(JSONObject js){
-        String nombre = js.getString(NOMBRE_KEY);
-        String hora   = js.getString(HORA_KEY);
+        int id_medico = Integer.parseInt(js.getString(NOMBRE_KEY));
         JSONObject respuesta = new JSONObject();
-        for (Turno turno : turnos){
-            if(turno.getPaciente().getNombre().equals(nombre)&&turno.getFecha().get_hora().equals(hora)){
-                Metodo_de_pago metodo_de_pago = crearMetodoDePago(js);
-                turno.setMetodoPago(metodo_de_pago);
 
-                respuesta.put(VALIDO_KEY,"si");
-                return respuesta;
-            }
+        Turno turno = getTurnoPorIDMedYHora(id_medico,js.getString(HORA_KEY));
+        if(turno!=null){
+            respuesta.put(VALIDO_KEY,"si");
+            return respuesta;
         }
         respuesta.put(VALIDO_KEY,"no");
         respuesta.put(ERROR_KEY,"No se encontro turno");
