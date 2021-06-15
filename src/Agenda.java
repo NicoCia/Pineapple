@@ -257,11 +257,14 @@ public class Agenda implements Interfaz_Agenda{
 
     @Override
     public JSONObject consultarTurnosReservadosMedico(JSONObject json_object) {
+        BitSet[] bs = turnosReservadosEnBitsets();
         JSONObject respuesta = new JSONObject();
         JSONArray array = new JSONArray();
-        int id_medico = Integer.parseInt(json_object.getString(ID_MEDICX_KEY));
-        for(Turno turno : turnos){
-            if(turno.getIdMedico()==id_medico){
+
+        int i = Integer.parseInt(json_object.getString(ID_MEDICX_KEY));
+        for(int j=0;j<N_TURNOS;j++){
+            if(bs[i].get(j)){
+                Turno turno = getTurnoPorIDMedYHora(i,horaConIJ(j));
                 JSONObject elemento = new JSONObject();
                 elemento.put(NOMBRE_KEY,turno.getPaciente().getNombre());
                 elemento.put(HORA_KEY,turno.getFecha().get_hora());
@@ -269,8 +272,17 @@ public class Agenda implements Interfaz_Agenda{
             }
         }
         respuesta.put(VALIDO_KEY,"si");
-        respuesta.put(TURNOS_KEY,array);
+        respuesta.put("turnos",array);
         return respuesta;
+    }
+
+    private Turno getTurnoPorIDMedYHora(int id_med, String hora){
+        for (Turno turno : turnos){
+            if (turno.getIdMedico()==id_med&&turno.getFecha().get_hora().equals(hora)){
+                return turno;
+            }
+        }
+        return null;
     }
 
     public JSONObject cambiarMetodoPago(JSONObject js){
