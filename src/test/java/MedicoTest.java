@@ -6,6 +6,8 @@ public class MedicoTest {
     Medico medico = new Medico("Nombre Apellido","1234","4321","12345ascsd",1);
     Paciente paciente = new Paciente("Nombre Apellido","392658471");
     Fecha fecha = new Fecha(1,1,1,"20:40");
+    Metodo_de_pago efectivo = new Efectivo(50);
+    Turno turno = new Turno(paciente, fecha, 1,efectivo,50);
     @Test
     public void testGetNombre() {
         String name="Nombre Apellido";
@@ -31,6 +33,7 @@ public class MedicoTest {
         int id=1;
         assertEquals(medico.getId(), id);
     }
+    /*----------------------Paciente---------------*/
     @Test
     public void testPacienteGetNombre() {
         String name = "Nombre Apellido";
@@ -41,6 +44,7 @@ public class MedicoTest {
         String dni = "392658471";
         assertEquals(paciente.getDni(), dni);
     }
+    /*--------------------Fecha----------------------*/
     @Test
     public void testFechaGetDia() {
         int dia = 1;
@@ -60,5 +64,27 @@ public class MedicoTest {
     public void testFechaGetHora() {
         String hora = "20:40";
         assertEquals(hora, fecha.get_hora());
+    }
+    /*--------------------Turno----------------------*/
+    @Test
+    public void testTurnoGetPaciente() {
+        assertEquals(true, turno.getPaciente() instanceof Paciente);
+    }
+    @Test
+    public void testTurnoGetFecha() {
+        assertEquals(true, turno.getFecha() instanceof Fecha);
+    }
+    @Test
+    public void testTurnoGetIdMedico() {
+        assertEquals(1, turno.getIdMedico());
+    }
+    @Test
+    public void testTurnoGetMetodoDePago() {
+        assertEquals(true, turno.getMetodoDePago() instanceof Metodo_de_pago);
+    }
+    @Test
+    public void testTurnoSetMetodoDePago() {
+        turno.setMetodoPago(new Tarjeta_credito(123548,"10/23",1234,12));
+        assertEquals(true, turno.getMetodoDePago() instanceof Metodo_de_pago);
     }
 }
