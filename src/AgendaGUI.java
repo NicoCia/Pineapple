@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -249,6 +249,9 @@ public class AgendaGUI extends JFrame {
                 jo.put(CONTRASENIA_MEDICX_KEY, new String(password.getPassword()));
                 jo = AgendaGUI.this.validadorMedicx.iniciarSesion(jo);
                 if(jo.getString(VALIDO_KEY).equals("si")){
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDateTime now = LocalDateTime.now();
+                    printInTextPane("DIA: " + dtf.format(now) + "\n\n", turnosMedicoTextPane);
                     nombreDoctor.setText(AgendaGUI.this.validadorMedicx.getNomConID(jo).getString(NOMBRE_MEDICX_KEY));
                     jo = AgendaGUI.this.validadorTurnos.consultarTurnosReservadosMedico(jo);
                     JSONArray ja = jo.getJSONArray(TURNOS_KEY);
@@ -361,6 +364,8 @@ public class AgendaGUI extends JFrame {
                     //TODO finalizar implementación - imprimir ticket
                     JOptionPane.showMessageDialog(null, "Turno creado con exito!");
                     cleanCrearTurnoPanel();
+                    jo.put(NOMBRE_MEDICX_KEY, medicxsBox.getSelectedItem().toString());
+                    setHorarioModel(AgendaGUI.this.validadorMedicx.getIDConNom(jo).getString(NOMBRE_MEDICX_KEY));
                 }
                 else{
                     JOptionPane.showMessageDialog(null, jo.getString(ERROR_KEY));
@@ -378,31 +383,14 @@ public class AgendaGUI extends JFrame {
                 cleanCrearTurnoPanel();
             }
         });
-        /*
-        * TODO documentar
-        */
+        /**
+         * Método acción al seleccionar una opccion de desplegable de "Medicxs"
+         * Llama a la funcion setHorarioModel para setear las opciones disponibles en el desplegable "Horario:" para el medico seleccionado
+         */
         medicxsBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JSONObject jo = new JSONObject();
-                jo.put(NOMBRE_MEDICX_KEY, medicxsBox.getSelectedItem().toString());
-                jo = AgendaGUI.this.validadorMedicx.getIDConNom(jo);
-                jo = AgendaGUI.this.validadorTurnos.consultarTurnosDisponiblesMedico(jo);
-
-                if(jo.getString(VALIDO_KEY).equals("si")){
-                    JSONArray ja = jo.getJSONArray(TURNOS_KEY);
-                    String[] s = new String[ja.length()];
-                    for(int i=0; i<ja.length(); i++){
-                        jo = ja.getJSONObject(i);
-                        s[i] = jo.getString(HORA_KEY);
-                    }
-                    horarioBox.setModel(new DefaultComboBoxModel(s));
-                }
-                else{
-                    String[] s = {"No existen turnos disponibles"};
-                    horarioBox.setModel(new DefaultComboBoxModel(s));
-                }
-
+                setHorarioModel(medicxsBox.getSelectedItem().toString());
             }
         });
         /*
@@ -535,6 +523,33 @@ public class AgendaGUI extends JFrame {
     }
 
     /**
+     * Método de seteo de opciones para JComboBox "Horarios:"
+     * Consulta los horarios disponibles de ese medico y genera el desplegable de opciones
+     * @param: String nombre_medico - Nombre del medico seleccionado en JComboBox "Medicxs"
+     */
+    private int setHorarioModel(String nombre_medico){
+        JSONObject jo = new JSONObject();
+        jo.put(NOMBRE_MEDICX_KEY, nombre_medico);
+        jo = AgendaGUI.this.validadorMedicx.getIDConNom(jo);
+        jo = AgendaGUI.this.validadorTurnos.consultarTurnosDisponiblesMedico(jo);
+
+        if(jo.getString(VALIDO_KEY).equals("si")){
+            JSONArray ja = jo.getJSONArray(TURNOS_KEY);
+            String[] s = new String[ja.length()];
+            for(int i=0; i<ja.length(); i++){
+                jo = ja.getJSONObject(i);
+                s[i] = jo.getString(HORA_KEY);
+            }
+            horarioBox.setModel(new DefaultComboBoxModel(s));
+            return 1;
+        }
+        else{
+            String[] s = {"No existen turnos disponibles"};
+            horarioBox.setModel(new DefaultComboBoxModel(s));
+            return 0;
+        }
+    }
+    /**
      * Metodo de limpieza de la VISTA CREAR TURNO
      * Regresa todos los campos al valor original
      */
@@ -666,5 +681,10 @@ public class AgendaGUI extends JFrame {
             arr[i] = validadorMedicx.getNomConID(jo).getString(NOMBRE_MEDICX_KEY);
         }
         medicxsBox.setModel(new DefaultComboBoxModel(arr));
+
+        JSONObject jo = new JSONObject();
+        jo.put(ID_MEDICX_KEY, id_medicos.get(0));
+        setHorarioModel(validadorMedicx.getNomConID(jo).getString(NOMBRE_MEDICX_KEY));
+
     }
 }

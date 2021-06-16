@@ -33,7 +33,7 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
     private static final String MATRICULA_MEDICX_KEY    =            "matricula";
     private static final String DNI_MEDIX_KEY           =           "dni medico";
 
-    private static final String PATH                    = "/home/nicocia/IdeaProjects/CelsiusConverter/src/medicos.txt";
+    private static final String PATH                    = System.getProperty("user.dir")+ "/data/medicos.txt";
 
     private List<Medico> medicos;
     private BufferedReader br;
@@ -41,7 +41,9 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
 
     public Gestor_Medicx() throws Exception{
         medicos = new ArrayList<Medico>();
+        new File(System.getProperty("user.dir")+ "/data").mkdir();
         file = new File(PATH);
+        file.createNewFile();
         br = new BufferedReader(new FileReader(file));
         levantarMedicos();
     }

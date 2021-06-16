@@ -44,20 +44,22 @@ public class Agenda implements Interfaz_Agenda, Subject{
     private static final int    N_MEDICOS               =                                           6;
 
 
-    private static final String PATH                    = "/home/nicocia/IdeaProjects/CelsiusConverter/src/turnos.txt";
+    private static final String PATH                    = System.getProperty("user.dir")+ "/data/turnos.txt";
 
     //Campos
-    private List<Turno>   turnos;
-    private List<Observer> observers;
-    private BufferedReader br;
-    private File file;
+    private final List<Turno>   turnos;
+    private final List<Observer> observers;
+    private final BufferedReader br;
+    private final File file;
     private boolean flag_levantando_file;
 
     //Constructor
     public Agenda() throws Exception{
         turnos    = new ArrayList<>();
         observers = new ArrayList<>();
+        new File(System.getProperty("user.dir")+ "/data").mkdir();
         file = new File(PATH);
+        file.createNewFile();
         br = new BufferedReader(new FileReader(file));
         levantarTurnos();
     }
@@ -310,10 +312,13 @@ public class Agenda implements Interfaz_Agenda, Subject{
         Pattern pattern = Pattern.compile("[,\n]");
         String linea;
         while ((linea = br.readLine()) != null) {
-            String[] s = pattern.split(linea);
-            JSONObject js= generarJsonApartirDeArray(s);
 
-            crearTurno(js);
+            if (!(linea.equals(""))) {
+                String[] s = pattern.split(linea);
+                JSONObject js= generarJsonApartirDeArray(s);
+                crearTurno(js);
+            }
+
         }
         flag_levantando_file = false;
     }

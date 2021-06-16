@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class VistaTurnosDisp extends JFrame implements Observer{
@@ -24,7 +26,9 @@ public class VistaTurnosDisp extends JFrame implements Observer{
         this.validadorTurnos = validadorTurnos;
         this.validadorMedicxs =validadorMedicxs;
         this.id_medicos = id_medicos;
-        titleLabel.setText("TURNOS DISPONIBLES");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        titleLabel.setText("TURNOS DISPONIBLES DIA " + dtf.format(now));
         turnosTextPane.setEditable(false);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -45,14 +49,14 @@ public class VistaTurnosDisp extends JFrame implements Observer{
         turnosTextPane.setText("");
         if(jo.getString(VALIDO_KEY).equals("si")){
             JSONArray ja = jo.getJSONArray("medicos");
-            for(int i=0; i<id_medicos.size(); i++){
+            for (String id_medico : id_medicos) {
                 JSONObject consult = new JSONObject();
-                consult.put(ID_MEDICX_KEY, id_medicos.get(i));
+                consult.put(ID_MEDICX_KEY, id_medico);
                 consult = validadorMedicxs.getNomConID(consult);
-                printInTextPane("Medicx: "+consult.getString(NOMBRE_MEDICX_KEY)+"\n");
-                consult = ja.getJSONObject(Integer.parseInt(id_medicos.get(i)));
-                JSONArray list = consult.getJSONArray(id_medicos.get(i)); //jo.get(id_medicos.get(i));
-                for(int j=0; j<list.length(); j++){
+                printInTextPane("Medicx: " + consult.getString(NOMBRE_MEDICX_KEY) + "\n");
+                consult = ja.getJSONObject(Integer.parseInt(id_medico));
+                JSONArray list = consult.getJSONArray(id_medico); //jo.get(id_medicos.get(i));
+                for (int j = 0; j < list.length(); j++) {
                     String s = list.getString(j);
                     printInTextPane("\t\t" + s + "\n");
                 }
