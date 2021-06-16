@@ -1,3 +1,4 @@
+
 /** Esta clase define objetos que contienen los datos del turno
  * @author: Pineapple
  * @version: 12/06/2021
@@ -30,8 +31,16 @@ public class Turno {
     /**
      * Método que configura el metodo de pago
      */
-    public void setMetodoPago() {
+    public void setMetodoPago(Metodo_de_pago metodo_de_pago) {
+        forma_pago = metodo_de_pago;
+    }
 
+    /**
+     * Método que devuelve el metodo de pago que tiene asignado el turno
+     * @return el id del medico
+     */
+    public Metodo_de_pago getMetodoDePago() {
+        return forma_pago;
     }
 
     /**
@@ -40,6 +49,14 @@ public class Turno {
      */
     public int getIdMedico() {
         return id_medico;
+    }
+
+    /**
+     * Método que devuelve el numero de identificacion del medico
+     * @return el id del medico
+     */
+    public Fecha getFecha() {
+        return fecha;
     }
 
     /**
