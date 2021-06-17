@@ -40,6 +40,7 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
     private File file;
 
     public Gestor_Medicx() throws Exception{
+        //System.out.println(PATH);
         medicos = new ArrayList<Medico>();
         new File(System.getProperty("user.dir")+ "/data").mkdir();
         file = new File(PATH);
@@ -128,9 +129,11 @@ public class Gestor_Medicx implements Interfaz_Gestor_Medicx{
         Pattern pattern = Pattern.compile("[,\n]");
         String linea;
         while ((linea = br.readLine()) != null) {
-            String[] s = pattern.split(linea);
-            Medico medico = new Medico(s[0],s[1],s[2],s[3],Integer.parseInt(s[4]));
-            medicos.add(medico);
+            if (!(linea.equals(""))) {
+                String[] s = pattern.split(linea);
+                Medico medico = new Medico(s[0],s[1],s[2],s[3],Integer.parseInt(s[4]));
+                medicos.add(medico);
+            }
         }
     }
 

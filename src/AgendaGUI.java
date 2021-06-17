@@ -683,8 +683,10 @@ public class AgendaGUI extends JFrame {
         medicxsBox.setModel(new DefaultComboBoxModel(arr));
 
         JSONObject jo = new JSONObject();
-        jo.put(ID_MEDICX_KEY, id_medicos.get(0));
-        setHorarioModel(validadorMedicx.getNomConID(jo).getString(NOMBRE_MEDICX_KEY));
+        if(id_medicos.size() > 0){
+            jo.put(ID_MEDICX_KEY, id_medicos.get(0));
+            setHorarioModel(validadorMedicx.getNomConID(jo).getString(NOMBRE_MEDICX_KEY));
+        }
 
     }
 }
