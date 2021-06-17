@@ -30,7 +30,7 @@ public class MedicoTest {
     }
     @Test
     public void getId() {
-        int id=1;
+        int id=2;
         assertEquals(medico.getId(), id);
     }
     /*----------------------Paciente---------------*/
