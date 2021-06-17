@@ -62,7 +62,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         respuesta.put("error","Error en metodo de pago");
     }
 
-    private boolean validarNombre(@NotNull JSONObject js){
+    private boolean validarNombre(JSONObject js){
         String nombre = js.getString(NOMBRE_KEY);
         return stringSoloCompuestoPorletras(nombre);
     }
@@ -85,7 +85,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return Pattern.matches("[0-9]+", s);
     }
 
-    private boolean validadMetodoDePago(@NotNull JSONObject json_object) {
+    private boolean validadMetodoDePago(JSONObject json_object) {
         switch (json_object.getString(METODO_DE_PAGO_KEY)){
             case EFECTIVO:
                 return validarEfectivo(json_object);
@@ -108,17 +108,17 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return validarNumeroTarjeta(json_object) && validarCodigoDeSeguridad(json_object);
     }
 
-    private boolean validarNumeroTarjeta(@NotNull JSONObject json_object) {
+    private boolean validarNumeroTarjeta(JSONObject json_object) {
         String n_tarjeta = json_object.getString(NUMERO_TARJETA_KEY);
         return stringSoloCompuestoPorNumeros(n_tarjeta)&&(n_tarjeta.length()==N_TARJETA_LENGHT);
     }
 
-    private boolean validarCodigoDeSeguridad(@NotNull JSONObject json_object){
+    private boolean validarCodigoDeSeguridad(JSONObject json_object){
         String n_tarjeta = json_object.getString(CODSEG_TARJETA_KEY);
         return stringSoloCompuestoPorNumeros(n_tarjeta)&&(n_tarjeta.length()==N_CODSEG_LENGHT);
     }
 
-    private boolean validarEfectivo(@NotNull JSONObject json_object) {
+    private boolean validarEfectivo(JSONObject json_object) {
         String s = json_object.getString(MONTO_KEY);
         if(stringSoloCompuestoPorNumeros(s)&&montoSuficiente(json_object)){
             return true;
@@ -126,7 +126,7 @@ public class Validacion_Turno implements Interfaz_Validacion_Turno{
         return false;
     }
 
-    private boolean montoSuficiente(@NotNull JSONObject json_object){
+    private boolean montoSuficiente(JSONObject json_object){
         int monto = Integer.parseInt(json_object.getString(MONTO_KEY));
         if(monto>=json_object.getInt(COSTO_KEY)){
             return true;
