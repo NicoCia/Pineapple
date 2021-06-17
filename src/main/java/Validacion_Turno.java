@@ -1,4 +1,3 @@
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.regex.Pattern;
